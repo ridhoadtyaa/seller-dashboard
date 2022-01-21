@@ -158,7 +158,7 @@ const AddProduct = () => {
 
                         <div className='mt-5 text-center'>
                             <button className="btn btn-outline border border-dark btn-lg" onClick={cancelHandler}>Cancel</button>
-                            <button className={`btn ${loading ? 'btn-secondary' : 'btn-dark'} btn-lg ms-3`} onClick={submitProductHandler}>Submit</button>
+                            <button className={`btn ${loading ? 'btn-secondary' : 'btn-dark'} btn-lg ms-3`} onClick={submitProductHandler} disabled={loading}>Submit</button>
                         </div>
                     </div>
                 </div>

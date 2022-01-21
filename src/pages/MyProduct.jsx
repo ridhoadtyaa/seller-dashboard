@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import NavbarDashboard from '../components/NavbarDashboard';
-import { BiSearchAlt2, BiPencil, BiTrash } from "react-icons/bi";
+import { BiPencil, BiTrash } from "react-icons/bi";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore"; 
 import { db } from '../firebase';
 import Toast, { notifyType } from '../components/Toast';
@@ -9,6 +9,7 @@ const MyProduct = () => {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const getDataProduct = async () => {
         setLoading(true);
@@ -44,8 +45,7 @@ const MyProduct = () => {
                                 <div className="row">
                                     <div className="col-md-3">
                                         <div className="input-group mb-3">
-                                            <input type="text" className="form-control" placeholder="Search" aria-label="Search" />
-                                            <button className="btn btn-dark" type="button" id="button-addon2"><BiSearchAlt2 /></button>
+                                            <input type="search" className="form-control" placeholder="Search" aria-label="Search" onChange={e => setSearchTerm(e.target.value)} />
                                         </div>
                                     </div>
                                 </div>
@@ -65,7 +65,13 @@ const MyProduct = () => {
                                         {
                                             !loading ? (
                                                 products.length ? (
-                                                    products.map((product, i) => (
+                                                    products.filter(product => {
+                                                        if(searchTerm === '') {
+                                                            return product;
+                                                        } else if(product.data.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                                                            return product;
+                                                        }
+                                                    }).map((product, i) => (
                                                         <tr key={product.id}>
                                                             <th scope="row">{i+1}</th>
                                                             <td><img src={product.data.photo} alt="product" width={70} /></td>

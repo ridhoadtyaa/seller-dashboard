@@ -5,6 +5,7 @@
 - Add product
 - List product
 - Delete product
+- Search product
 
 ## Tools
 - Firebase ( Firestore Database & Storage )
